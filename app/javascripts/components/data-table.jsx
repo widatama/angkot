@@ -1,33 +1,45 @@
-import PTRoutes from "../../data/routes.json";
+/* Data Table
+ * Receives an array of string as table heading and an array of object as table body
+*/
 
 import React from "react";
 
-const regx = /_/;
+function Heading(props) {
+  return (
+    <thead>
+      <tr>
+        {props.titles.map((key) => {
+          if (key !== "id") {
+            return <th key={key}>{key}</th>
+          }
+        })}
+      </tr>
+    </thead>
+  );
+}
 
-const headingRow = Object.keys(PTRoutes[0]).map((key) =>
-  <th key={key}>{key.replace(regx, " ")}</th>
-);
-
-const contentRows = PTRoutes.map((content) =>
-  <tr key={content.id}>
-    {Object.keys(content).map((key) =>
-      <td>{content[key]}</td>
-    )}
-  </tr>
-);
+function Rows(props) {
+  return (
+    <tbody>
+      {props.entries.map((row) =>
+        <tr key={row.id}>
+          {Object.keys(row).map((key) => {
+            if (key !== "id") {
+              return <td key={key}>{row[key]}</td>
+            }
+          })}
+        </tr>
+      )}
+    </tbody>
+  );
+}
 
 export default class DataTable extends React.Component {
   render() {
     return (
       <table>
-        <thead>
-          <tr>
-            {headingRow}
-          </tr>
-        </thead>
-        <tbody>
-          {contentRows}
-        </tbody>
+        <Heading titles={this.props.headingTitles}/>
+        <Rows entries={this.props.rowEntries}/>
       </table>
     );
   }
