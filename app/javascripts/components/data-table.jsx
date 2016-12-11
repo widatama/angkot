@@ -19,19 +19,24 @@ function Heading(props) {
 }
 
 function Rows(props) {
-  return (
-    <tbody>
-      {props.entries.map((row) =>
-        <tr key={row.id}>
-          {Object.keys(row).map((key) => {
-            if (key !== "id") {
-              return <td key={key}>{row[key]}</td>
-            }
-          })}
-        </tr>
-      )}
-    </tbody>
-  );
+  if (props.entries) {
+    return (
+      <tbody>
+        {props.entries.map((row) =>
+          <tr key={row.id}>
+            {Object.keys(row).map((key) => {
+              if (key !== "id") {
+                return <td key={key}>{row[key]}</td>
+              }
+            })}
+          </tr>
+        )}
+      </tbody>
+    );
+  }
+  else {
+    return null;
+  }
 }
 
 export default class DataTable extends React.Component {

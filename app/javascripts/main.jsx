@@ -1,17 +1,11 @@
-import PTRoutes from "../data/routes.json";
-
 import "../stylesheets/app.css";
 
 import React from "react";
 import ReactDOM from "react-dom";
 
-import DataTable from "./components/data-table.jsx";
-
-const headingTitles = Object.keys(PTRoutes[0]).map((title) =>
-  title.replace("_", " ")
-);
+import App from "./components/app.jsx";
 
 ReactDOM.render(
-  <DataTable headingTitles={headingTitles} rowEntries={PTRoutes}/>,
+  <App/>,
   document.getElementById("react")
 );
