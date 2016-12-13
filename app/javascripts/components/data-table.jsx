@@ -39,13 +39,24 @@ function Rows(props) {
   }
 }
 
+function Table(props) {
+  if (props.rowEntries.length > 0) {
+    return (
+      <table>
+        <Heading titles={props.headingTitles} />
+        <Rows entries={props.rowEntries} />
+      </table>
+    );
+  }
+  else {
+    return null;
+  }
+}
+
 export default class DataTable extends React.Component {
   render() {
     return (
-      <table>
-        <Heading titles={this.props.headingTitles}/>
-        <Rows entries={this.props.rowEntries}/>
-      </table>
+      <Table headingTitles={this.props.headingTitles} rowEntries={this.props.rowEntries} />
     );
   }
 }

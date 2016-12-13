@@ -1,15 +1,11 @@
 /* The App */
 
-import Data from "../../data/routes.json";
+import {dataHeadings, dataBody} from "../../data/data";
 
 import React from "react";
 
 import DataTable from "./data-table.jsx";
 import Filter from "./filter.jsx";
-
-const headingTitles = Object.keys(Data[0]).map((title) =>
-  title.replace("_", " ")
-);
 
 function isRegexValid(regexStr) {
   let result = true;
@@ -38,7 +34,7 @@ export default class App extends React.Component {
     if (value !== "" && isRegexValid(value)) {
       const rgx = RegExp(value, "i");
 
-      let filteredEntries = Data.filter((dataEntry) => {
+      let filteredEntries = dataBody.filter((dataEntry) => {
         let match = false;
 
         for(const key in dataEntry) {
@@ -67,7 +63,7 @@ export default class App extends React.Component {
     return (
       <div>
         <Filter value={this.state.value} onChange={this.handleFilterChange} />
-        <DataTable headingTitles={headingTitles} rowEntries={this.state.displayData} />
+        <DataTable headingTitles={dataHeadings} rowEntries={this.state.displayData} />
       </div>
     );
   }
