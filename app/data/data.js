@@ -8,7 +8,7 @@ const dataHeadings = [
   "Rute Kembali"
 ];
 
-const dataBody = RawData.map((entry) => {
+const fullData = RawData.map((entry) => {
   let vehicleType = entry.jenis_trayek === "-" ? entry.jenis_angkutan : entry.jenis_trayek;
   let routeNumber = entry.no_trayek;
   let routeName = entry.nama_trayek;
@@ -32,4 +32,48 @@ const dataBody = RawData.map((entry) => {
   };
 });
 
-export {dataHeadings, dataBody};
+function isRegexValid(regexStr) {
+  let result = true;
+  try {
+    new RegExp(regexStr);
+  }
+  catch (e) {
+    result = false;
+  }
+
+  return result;
+}
+
+function generateQueryRegex(rawStr) {
+  let result = rawStr.split(" ");
+
+  result = result.map((chunk) => {
+    return "(?=.*" + chunk + ")";
+  });
+
+  return result.join("") + ".";
+}
+
+const dataGet = (query) => {
+  const queryRegex = generateQueryRegex(query);
+
+  let filteredEntries = [];
+
+  if (query !== "" && isRegexValid(queryRegex)) {
+    const rgx = RegExp(queryRegex, "ig");
+
+    filteredEntries = fullData.filter((dataEntry) => {
+      let match = false;
+
+      if (rgx.test(dataEntry["~digest"])) {
+        match = true;
+      }
+
+      return match;
+    });
+  }
+
+  return filteredEntries;
+};
+
+export {dataHeadings, fullData, dataGet};
