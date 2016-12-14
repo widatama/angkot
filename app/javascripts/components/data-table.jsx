@@ -9,7 +9,7 @@ function Heading(props) {
     <thead>
       <tr>
         {props.titles.map((key) => {
-          if (key !== "id") {
+          if (!/~/.test(key)) {
             return <th key={key}>{key}</th>
           }
         })}
@@ -23,9 +23,9 @@ function Rows(props) {
     return (
       <tbody>
         {props.entries.map((row) =>
-          <tr key={row.id}>
+          <tr key={row["~id"]}>
             {Object.keys(row).map((key) => {
-              if (key !== "id") {
+              if (!/~/.test(key)) {
                 return <td key={key}>{row[key]}</td>
               }
             })}

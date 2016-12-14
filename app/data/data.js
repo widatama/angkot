@@ -21,7 +21,14 @@ const dataBody = RawData.map((entry) => {
     "Nama": routeName,
     "Rute Berangkat": routeDepart,
     "Rute Kembali": routeReturn,
-    "id": entry.id
+    "~id": entry.id,
+    "~digest": [
+      vehicleType,
+      routeNumber,
+      routeName,
+      routeDepart,
+      routeReturn
+    ].join(" -- ")
   };
 });
 

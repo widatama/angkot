@@ -19,6 +19,16 @@ function isRegexValid(regexStr) {
   return result;
 }
 
+function generateSearchRegex(rawStr) {
+  let result = rawStr.split(" ");
+
+  result = result.map((chunk) => {
+    return "(?=.*" + chunk + ")";
+  });
+
+  return result.join("") + ".";
+}
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -31,17 +41,22 @@ export default class App extends React.Component {
   }
 
   handleFilterChange(value) {
-    if (value !== "" && isRegexValid(value)) {
-      const rgx = RegExp(value, "i");
+    let searchRegex = generateSearchRegex(value);
+    if (value !== "" && isRegexValid(searchRegex)) {
+      const rgx = RegExp(searchRegex, "ig");
 
       let filteredEntries = dataBody.filter((dataEntry) => {
         let match = false;
 
-        for(const key in dataEntry) {
-          if(rgx.test(dataEntry[key])) {
-            match = true;
-          }
+        if (rgx.test(dataEntry["~digest"])) {
+          match = true;
         }
+
+        //for(const key in dataEntry) {
+          //if(rgx.test(dataEntry[key])) {
+            //match = true;
+          //}
+        //}
 
         return match;
       });
