@@ -1,5 +1,5 @@
 /* Filter
- * Receives user input and filters data entries based on that input
+ * Receives user input for filtering data
 */
 
 import React from "react";
