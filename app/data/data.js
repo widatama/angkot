@@ -59,7 +59,6 @@ const dataGet = (query) => {
     const queryRegex = generateQueryRegex(query);
 
     let filteredEntries = [];
-    let idx = 0;
 
     if (query !== "" && isRegexValid(queryRegex)) {
       const rgx = RegExp(queryRegex, "ig");
@@ -72,12 +71,8 @@ const dataGet = (query) => {
           match = true;
         }
 
-        idx++;
-
         return match;
       });
-
-      console.log(idx);
     }
 
     resolve(filteredEntries);
