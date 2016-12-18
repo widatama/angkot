@@ -28,8 +28,10 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Filter value={this.state.value} onChange={this.handleFilterChange} />
-        <DataTable headingTitles={dataHeadings} rowEntries={this.state.displayData} />
+        <Filter value={this.state.value} placeholderText="Cari rute" onChange={this.handleFilterChange} />
+        <div className="c-result">
+          <DataTable headingTitles={dataHeadings} rowEntries={this.state.displayData} />
+        </div>
       </div>
     );
   }

@@ -9,7 +9,7 @@ var postcssNested =     require("postcss-nested");
 var environment = process.env.NODE_ENV;
 
 var htmlWebpackPluginConfig = {
-  title: "React App",
+  title: "Angkot",
   template: "!!pug!app/templates/index.pug",
   environment: environment
 };

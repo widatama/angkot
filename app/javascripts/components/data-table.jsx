@@ -4,13 +4,19 @@
 
 import React from "react";
 
+const baseClassName = "c-data-table";
+
+function generateClassNameModifier(name) {
+  return name.replace(/ /g, "-").toLowerCase();
+}
+
 function Heading(props) {
   return (
-    <thead>
+    <thead className={baseClassName  + "__heading"}>
       <tr>
         {props.titles.map((key) => {
           if (!/~/.test(key)) {
-            return <th key={key}>{key}</th>
+            return <th className={baseClassName  + "__heading-col " + baseClassName + "__heading-col--" + generateClassNameModifier(key)} key={key}>{key}</th>
           }
         })}
       </tr>
@@ -21,12 +27,12 @@ function Heading(props) {
 function Rows(props) {
   if (props.entries) {
     return (
-      <tbody>
+      <tbody className={baseClassName  + "__body"}>
         {props.entries.map((row) =>
-          <tr key={row["~id"]}>
+          <tr className={baseClassName + "__body-row"} key={row["~id"]}>
             {Object.keys(row).map((key) => {
               if (!/~/.test(key)) {
-                return <td key={key}>{row[key]}</td>
+                return <td className={baseClassName + "__body-col"} key={key} dangerouslySetInnerHTML={{__html: row[key]}}></td>
               }
             })}
           </tr>
@@ -42,7 +48,7 @@ function Rows(props) {
 function Table(props) {
   if (props.rowEntries.length > 0) {
     return (
-      <table>
+      <table className="c-data-table">
         <Heading titles={props.headingTitles} />
         <Rows entries={props.rowEntries} />
       </table>

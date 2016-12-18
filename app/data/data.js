@@ -3,22 +3,22 @@ import RawData from "./data.json";
 const dataHeadings = [
   "Jenis",
   "No",
-  "Nama",
+  "Nama Rute",
   "Rute Berangkat",
   "Rute Kembali"
 ];
 
 const fullData = RawData.map((entry) => {
-  let vehicleType = entry.jenis_trayek === "-" ? entry.jenis_angkutan : entry.jenis_trayek;
+  let vehicleType = entry.jenis_trayek === "-" ? entry.jenis_angkutan.replace(/K W K/i, "KWK") : entry.jenis_trayek.replace(/K W K/i, "KWK");
   let routeNumber = entry.no_trayek;
   let routeName = entry.nama_trayek;
-  let routeDepart = entry.rute_berangkat;
-  let routeReturn = entry.rute_kembali;
+  let routeDepart = entry.rute_berangkat.replace(/--/g, "<br/>");
+  let routeReturn = entry.rute_kembali.replace(/--/g, "<br/>");
 
   return {
     "Jenis": vehicleType,
     "No": routeNumber,
-    "Nama": routeName,
+    "Nama Rute": routeName,
     "Rute Berangkat": routeDepart,
     "Rute Kembali": routeReturn,
     "~id": entry.id,
