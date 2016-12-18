@@ -55,25 +55,33 @@ function generateQueryRegex(rawStr) {
 }
 
 const dataGet = (query) => {
-  const queryRegex = generateQueryRegex(query);
+  return new Promise((resolve) => {
+    const queryRegex = generateQueryRegex(query);
 
-  let filteredEntries = [];
+    let filteredEntries = [];
+    let idx = 0;
 
-  if (query !== "" && isRegexValid(queryRegex)) {
-    const rgx = RegExp(queryRegex, "ig");
+    if (query !== "" && isRegexValid(queryRegex)) {
+      const rgx = RegExp(queryRegex, "ig");
 
-    filteredEntries = fullData.filter((dataEntry) => {
-      let match = false;
+      //note: filtering is slow, consider using indexed db
+      filteredEntries = fullData.filter((dataEntry) => {
+        let match = false;
 
-      if (rgx.test(dataEntry["~digest"])) {
-        match = true;
-      }
+        if (rgx.test(dataEntry["~digest"])) {
+          match = true;
+        }
 
-      return match;
-    });
-  }
+        idx++;
 
-  return filteredEntries;
+        return match;
+      });
+
+      console.log(idx);
+    }
+
+    resolve(filteredEntries);
+  });
 };
 
 export {dataHeadings, fullData, dataGet};

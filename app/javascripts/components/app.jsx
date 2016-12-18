@@ -19,9 +19,11 @@ export default class App extends React.Component {
   }
 
   handleFilterChange(value) {
-    this.setState({
-      displayData: dataGet(value),
-      value: value
+    dataGet(value).then((result) => {
+      this.setState({
+        displayData: result,
+        value: value
+      });
     });
   }
 
