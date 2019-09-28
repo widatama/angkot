@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Signika:300,400');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap');
 
 :root {
-  --ft-sans-serif: "Signika", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ft-sans-serif: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   --ft-weight-light: 300;
   --ft-weight-regular: 400;

@@ -1,19 +1,32 @@
-var config = require("./webpack.config");
+const path = require('path');
 
-//config.entry.dev = "./app/javascripts/dev.js";
+const webpackConfig = require('./webpack.config');
+const appConfig = require('./app.config');
 
-config.output = {
-  path:       "./",
-  publicPath: "/",
-  filename:   "assets/javascripts/[name].js"
+// webpackConfig.entry.devjs = './javascripts/dev.js';
+// webpackConfig.entry.devcss = './stylesheets/dev.css';
+
+webpackConfig.output = {
+  path: path.resolve('', `./${appConfig.paths.dist.path}`),
+  publicPath: '/',
+  filename: `${appConfig.paths.dist.javascriptsPath}/${appConfig.bundleNames.js}`,
+  chunkFilename: `${appConfig.paths.dist.javascriptsPath}/${appConfig.bundleNames.jsChunk}`,
 };
 
-config.devtool = "eval-source-map";
+webpackConfig.devtool = 'eval-source-map';
 
-config.devServer = {
-  noInfo:      false,
-  hot:         true,
-  contentBase: "public/"
+webpackConfig.devServer = {
+  hot: true,
+  contentBase: `${appConfig.paths.dist.path}/`,
+  stats: {
+    assets: true,
+    chunks: false,
+    errors: true,
+    errorDetails: true,
+    performance: true,
+    timings: true,
+    warnings: true,
+  },
 };
 
-module.exports = config;
+module.exports = webpackConfig;

@@ -1,7 +1,7 @@
-var path =     require("path");
-var config =   require("../config/app.config");
-var executor = require("./executor");
+const path = require('path');
+const config = require('../config/app.config');
+const executor = require('./executor');
 
-var rootPath = path.join(__dirname, "..");
+const rootPath = path.join(__dirname, '..');
 
-executor("rm -rf " + path.join(rootPath, config.distPath));
+executor(`rm -rf ${path.join(rootPath, config.distPath)}`);

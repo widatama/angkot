@@ -1,65 +1,87 @@
-var Webpack =           require("webpack");
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
 
-var postcssImport =     require("postcss-import");
-var postcssNext =       require("postcss-cssnext");
-var postcssNested =     require("postcss-nested");
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackExcludeAssetsPlugin = require('html-webpack-exclude-assets-plugin');
 
-var environment = process.env.NODE_ENV;
+const postcssImport = require('postcss-import');
+const postcssPresetEnv = require('postcss-preset-env');
+const postcssNested = require('postcss-nested');
 
-var htmlWebpackPluginConfig = {
-  title: "Angkot",
-  template: "!!pug!app/templates/index.pug",
-  environment: environment
+const appConfig = require('./app.config');
+
+const environment = process.env.NODE_ENV;
+
+const htmlWebpackPluginConfig = {
+  title: appConfig.title,
+  template: `${appConfig.paths.src.templatePath}/index.pug`,
+  environment,
 };
 
-if (environment !== "development") {
-  htmlWebpackPluginConfig.excludeChunks = ["dev"];
+if (environment !== 'development') {
+  htmlWebpackPluginConfig.excludeChunks = ['dev'];
+  htmlWebpackPluginConfig.excludeAssets = [/dev/, /appcss.*.js/];
+} else {
+  htmlWebpackPluginConfig.excludeAssets = [/appcss.*.js/, /devcss.*.js/];
 }
 
 module.exports = {
+  context: path.resolve('', `./${appConfig.paths.src.path}`),
   entry: {
-    app: "./app/javascripts/main.jsx"
+    app: ['./javascripts/main.jsx', './stylesheets/app.css'],
+  },
+  mode: 'development',
+  resolve: {
+    extensions: ['.js', '.json', '.jsx'],
   },
   module: {
-    loaders: [
-      {
-        test:   /\.json$/,
-        loader: "json-loader?name=data/[name].[ext]"
-      },
-      {
-        test:   /\.(png|jpg)$/,
-        loader: "file-loader?name=assets/images/[name].[ext]"
-      },
+    rules: [
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader")
+        use: [
+          MiniCSSExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              plugins() {
+                return [
+                  postcssImport({
+                    path: ['node_modules', './src'],
+                  }),
+                  postcssPresetEnv,
+                  postcssNested,
+                ];
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.pug$/,
+        use: ['pug-loader'],
       },
       {
         test: /\.jsx?$/,
-        loader: "babel",
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [['@babel/preset-env', { modules: false }], '@babel/preset-react'],
+              plugins: ['react-hot-loader/babel'],
+            },
+          },
+        ],
         exclude: /node_modules/,
-        query: {
-          presets: ["react", "es2015"]
-        }
-      }
-    ]
+      },
+    ],
   },
-  postcss: [
-    postcssImport({
-      path: ["node_modules", "./app"]
-    }),
-    postcssNext(),
-    postcssNested()
-  ],
+  target: 'web',
   plugins: [
-    new Webpack.DefinePlugin({
-      "process.env": {
-        "NODE_ENV": JSON.stringify(environment)
-      }
+    new MiniCSSExtractPlugin({
+      filename: `${appConfig.paths.dist.stylesheetsPath}/${appConfig.bundleNames.css}`,
     }),
     new HtmlWebpackPlugin(htmlWebpackPluginConfig),
-    new ExtractTextPlugin("assets/stylesheets/[name].css")
-  ]
+    new HtmlWebpackExcludeAssetsPlugin(),
+  ],
 };

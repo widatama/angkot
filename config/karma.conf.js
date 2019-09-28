@@ -1,40 +1,48 @@
+/* eslint-disable import/no-extraneous-dependencies */
+const karmaFirefoxLauncher = require('karma-firefox-launcher');
+const karmaTap = require('karma-tap');
+const karmaTapPrettyReporter = require('karma-tap-pretty-reporter');
+const karmaWebpack = require('karma-webpack');
+/* eslint-enable import/no-extraneous-dependencies */
+
 // we can just use the exact same webpack config by requiring it
 // but make sure to delete the normal entry
-var webpackConf = require("./webpack.config");
+const webpackConf = require('./webpack.config');
 
 delete webpackConf.entry;
+delete webpackConf.plugins;
 webpackConf.node = {
-  fs: "empty"
+  fs: 'empty',
 };
+webpackConf.stats = 'none';
 
-module.exports = function (config) {
+module.exports = config => {
   config.set({
-    plugins: [
-      require("karma-chrome-launcher"),
-      require("karma-tap"),
-      require("karma-tap-pretty-reporter"),
-      require("karma-webpack")
-    ],
-    browsers:   ["ChromeCanary"],
-    frameworks: ["tap"],
-    reporters:  ["tap-pretty"],
+    plugins: [karmaFirefoxLauncher, karmaTap, karmaTapPrettyReporter, karmaWebpack],
+    browsers: ['FirefoxHeadless'],
+    frameworks: ['tap'],
+    reporters: ['tap-pretty'],
     tapReporter: {
-      prettifier: "tap-summary"
+      prettifier: 'tap-summary',
     },
-    files: [  // entry file for all tests.
-      "../test/bundle.js"
+    files: [
+      // entry file for all tests.
+      '../src/javascripts/test_entry.js',
     ],
-    preprocessors: { // pass the entry file to webpack for bundling.
-      "../test/bundle.js": ["webpack"]
+    preprocessors: {
+      // pass the entry file to webpack for bundling.
+      '../src/javascripts/test_entry.js': ['webpack'],
     },
     client: {
-      captureConsole: false
+      captureConsole: true,
     },
     webpack: webpackConf,
     webpackMiddleware: {
-      noInfo: true
+      noInfo: true,
     },
+    port: 9899,
+    autoWatch: false,
     singleRun: true,
-    colors: true
+    colors: true,
   });
 };

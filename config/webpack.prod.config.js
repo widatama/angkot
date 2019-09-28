@@ -1,25 +1,37 @@
-var webpack = require("webpack");
+const path = require('path');
 
-//var OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
+/* eslint-disable import/no-extraneous-dependencies */
+const webpack = require('webpack');
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const WebpackStylish = require('webpack-stylish');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+/* eslint-enable import/no-extraneous-dependencies */
 
-var config = require("./webpack.config");
+const webpackConfig = require('./webpack.config');
+const appConfig = require('./app.config');
 
-config.output = {
-  path:       "./public/",
-  publicPath: "",
-  filename:   "assets/javascripts/[name].js"
+webpackConfig.mode = 'production';
+webpackConfig.stats = 'none';
+
+webpackConfig.output = {
+  path: path.resolve('', `./${appConfig.paths.dist.path}/`),
+  publicPath: '',
+  filename: `${appConfig.paths.dist.javascriptsPath}/${appConfig.bundleNames.js}`,
+  chunkFilename: `${appConfig.paths.dist.javascriptsPath}/${appConfig.bundleNames.jsChunk}`,
 };
 
-config.plugins = (config.plugins || []).concat([
-  //new OptimizeCSSPlugin({
-    //cssProcessorOptions: {discardComments: {removeAll: true}}
-  //}),
-  new webpack.optimize.UglifyJsPlugin({
-    compress: {
-      warnings: false
-    }
+webpackConfig.optimization = {
+  minimizer: [new UglifyJsPlugin({ extractComments: 'all' })],
+};
+
+webpackConfig.plugins = (webpackConfig.plugins || []).concat([
+  new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify('production'),
   }),
-  new webpack.optimize.OccurenceOrderPlugin()
+  new OptimizeCSSPlugin({
+    cssProcessorOptions: { discardComments: { removeAll: true } },
+  }),
+  new WebpackStylish(),
 ]);
 
-module.exports = config;
+module.exports = webpackConfig;
