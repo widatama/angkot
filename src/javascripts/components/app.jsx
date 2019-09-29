@@ -23,10 +23,11 @@ class App extends React.Component {
   }
 
   handleFilterChange(value) {
+    this.setState({ value });
+
     dataGet(value).then(result => {
       this.setState({
         displayData: result,
-        value,
       });
     });
   }

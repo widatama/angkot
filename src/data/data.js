@@ -63,16 +63,18 @@ function dataGet(query) {
     if (query !== '' && isRegexValid(queryRegex)) {
       const rgx = RegExp(queryRegex, 'ig');
 
-      // note: filtering is slow, consider using something like indexed db
-      filteredEntries = extractedData.filter(dataEntry => {
-        let match = false;
+      // note: filtering is slow, consider querying instead
+      filteredEntries = extractedData
+        .filter(dataEntry => {
+          let match = false;
 
-        if (rgx.test(dataEntry['~digest'])) {
-          match = true;
-        }
+          if (rgx.test(dataEntry['~digest'])) {
+            match = true;
+          }
 
-        return match;
-      });
+          return match;
+        })
+        .slice(0, 20);
     }
 
     resolve(filteredEntries);
