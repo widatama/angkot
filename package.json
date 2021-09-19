@@ -1,103 +1,45 @@
 {
-  "name": "angkot",
-  "version": "0.0.1",
-  "description": "Jakarta’s public transportation routes",
-  "main": "index.js",
+  "name": "angkot-cra",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^12.20.25",
+    "@types/react": "^17.0.21",
+    "@types/react-dom": "^17.0.9",
+    "bent": "^7.3.12",
+    "just-debounce": "^1.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.4.3",
+    "web-vitals": "^1.1.2"
+  },
   "scripts": {
-    "start": "npm run clean && npm run webpack-dev",
-    "build": "npm run clean && npm run webpack-build",
-    "clean": "node task/clean",
-    "webpack-build": "NODE_ENV=production webpack --progress --hide-modules --config ./config/webpack.prod.config.js",
-    "webpack-dev": "NODE_ENV=development webpack-dev-server --https --inline --hot --colors --config ./config/webpack.dev.config.js",
-    "test": "karma start config/karma.conf.js",
-    "lint": "npm run lint:js && npm run lint:css",
-    "lint:js": "eslint src/**/*.{js,jsx} --fix",
-    "lint:css": "stylelint src/*/**/*.css --fix",
-    "format": "prettier src/*/**/*.{js,jsx} --write"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.js?(x)": [
-      "eslint --fix",
-      "prettier --write",
-      "git add"
-    ],
-    "*.css": [
-      "stylelint --fix",
-      "git add"
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://gihub.com/widatama/angkot.git"
-  },
-  "author": "Danu Widatama",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/widatama/angkot/issues"
-  },
-  "homepage": "https://gihub.com/widatama/angkot#README",
-  "browserslist": [
-    "last 2 version",
-    "> 2%",
-    "not dead"
-  ],
-  "devDependencies": {
-    "@babel/core": "^7.6.0",
-    "@babel/preset-env": "^7.6.0",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/register": "^7.6.0",
-    "babel-eslint": "^10.0.3",
-    "babel-loader": "^8.0.6",
-    "copy-webpack-plugin": "^5.0.4",
-    "css-loader": "^3.2.0",
-    "eslint": "^6.4.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.3.0",
-    "eslint-import-resolver-webpack": "^0.11.1",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.3",
-    "eslint-plugin-react-hooks": "^2.1.0",
-    "html-webpack-exclude-assets-plugin": "0.0.7",
-    "html-webpack-plugin": "^3.2.0",
-    "husky": "^3.0.5",
-    "karma": "^4.3.0",
-    "karma-firefox-launcher": "^1.2.0",
-    "karma-tap": "^4.1.4",
-    "karma-tap-pretty-reporter": "^4.1.0",
-    "karma-webpack": "^4.0.2",
-    "lint-staged": "^9.2.5",
-    "mini-css-extract-plugin": "^0.8.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "postcss-import": "^12.0.1",
-    "postcss-loader": "^3.0.0",
-    "postcss-nested": "^4.1.2",
-    "postcss-preset-env": "^6.7.0",
-    "prettier": "^1.18.2",
-    "pug": "^2.0.3",
-    "pug-loader": "^2.4.0",
-    "react-hot-loader": "^4.12.11",
-    "style-loader": "^1.0.0",
-    "stylelint": "^11.0.0",
-    "stylelint-config-recommended": "^3.0.0",
-    "tap-summary": "^4.0.0",
-    "tape": "^4.11.0",
-    "uglifyjs-webpack-plugin": "^2.2.0",
-    "webpack": "^4.40.2",
-    "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.1",
-    "webpack-stylish": "^0.1.8"
-  },
-  "dependencies": {
-    "normalize.css": "^8.0.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "tachyons": "^4.11.1"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
