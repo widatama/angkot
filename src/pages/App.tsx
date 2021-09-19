@@ -36,7 +36,7 @@ class App extends React.Component<AppProps> {
     const { entries, filterValue, titles } = this.state;
 
     return (
-      <div>
+      <div className="wrap mx-auto my-8 flex flex-col">
         <Filter value={filterValue} placeholderText="Cari rute" onSubmit={handleFilterSubmit} />
         { entries.length > 0 &&
           <DataTable titles={titles} entries={entries} />

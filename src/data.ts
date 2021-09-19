@@ -17,8 +17,8 @@ function formatData(entry: object) {
       : entry.jenis_trayek.replace(/K W K/i, 'KWK');
   const routeNumber: string = entry.no_trayek;
   const routeName: string = entry.nama_trayek;
-  const routeDepart: string = entry.rute_berangkat.replace(/ -- /g, '\n');
-  const routeReturn: string = entry.rute_kembali.replace(/ -- /g, '\n');
+  const routeDepart: string = entry.rute_berangkat.replace(/ -- /g, '<br/>');
+  const routeReturn: string = entry.rute_kembali.replace(/ -- /g, '<br/>');
 
   return {
     '~id': entry.id,
@@ -65,10 +65,17 @@ async function getData(query: string): object[] {
 
   if (query !== '' && isRegexValid(regexStr)) {
     const rgx = new RegExp(regexStr, 'ig');
+    const highlightRgx = new RegExp(query, 'ig');
 
     result = cachedData.reduce((acc, current) => {
       if (rgx.test(current['~digest'])) {
-        acc = acc.concat([Object.values(current).slice(0, -1)]);
+        const row = [].concat(Object.values(current).slice(0, -1));
+        row.forEach((field, idx) => {
+          if (field.length) {
+            row[idx] = field.replace(highlightRgx, '<span class="text-blue-500">$&</span>')
+          }
+        });
+        acc = acc.concat([row]);
       }
 
       return acc;

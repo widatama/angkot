@@ -25,16 +25,18 @@ const Filter: FC<FilterProps> = (props: FilterProps) => {
 
   return (
     <form
+      className="flex flex-row text-lg border-b-2 border-gray-600 pb-2 mb-8"
       onSubmit={handleSubmit}
     >
       <input
         type="text"
+        className="flex-grow outline-none bg-transparent"
         placeholder={placeholderText}
         onChange={handleChange}
         value={value}
         ref={filterInput}
       />
-      <button type="submit">
+      <button type="submit" className="font-bold px-2">
         &rarr;
       </button>
     </form>

@@ -9,12 +9,13 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
 
   if (titles.length > 0) {
     return (
-      <thead>
+      <thead className="text-gray-500 text-left">
         <tr>
           {titles.map(key => {
             if (!/~/.test(key)) {
               return (
                 <th
+                  className="pb-4"
                   key={key}
                 >
                   {key}
@@ -49,8 +50,11 @@ const Body: FC<BodyProps> = (props: BodyProps) => {
         {entries.map(row => (
           <tr key={row[0]}>
             {row.slice(1).map((field, idx) => (
-              <td key={`${row[0]}${idx}`}>
-                <pre>{field}</pre>
+              <td
+                key={`${row[0]}${idx}`}
+                className="align-top pb-2"
+                dangerouslySetInnerHTML={{ __html: field }}
+              >
               </td>
             ))}
           </tr>
