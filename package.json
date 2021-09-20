@@ -25,6 +25,7 @@
     "eject": "react-scripts eject",
     "css": "postcss src/stylesheets/index.css -o src/stylesheets/out.css"
   },
+  "homepage": "https://widatama.github.io/angkot",
   "eslintConfig": {
     "extends": [
       "react-app",
