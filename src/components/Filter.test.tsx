@@ -1,11 +1,13 @@
+import { createRef } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
+
 import Filter from './Filter';
 
 describe('Filter component', () => {
   const testInput = 'something';
 
   test('accepts placeholder text', () => {
-    const { container } = render(<Filter placeholderText={testInput} onSubmit={() => {}} />);
+    const { container } = render(<Filter ref={createRef()} placeholderText={testInput} onSubmit={() => {}} />);
 
     const input = container.querySelector('input');
 
@@ -13,7 +15,7 @@ describe('Filter component', () => {
   });
 
   test('accepts filter value', () => {
-    const { container } = render(<Filter value={testInput} onSubmit={() => {}} />);
+    const { container } = render(<Filter ref={createRef()} value={testInput} onSubmit={() => {}} />);
 
     const input = container.querySelector('input');
 
@@ -23,7 +25,7 @@ describe('Filter component', () => {
   test('submits event when button is clicked', () => {
     const testHandler = jest.fn();
 
-    const { container } = render(<Filter value={testInput} onSubmit={testHandler} />);
+    const { container } = render(<Filter ref={createRef()} value={testInput} onSubmit={testHandler} />);
 
     const button = container.querySelector('button');
 
@@ -35,7 +37,7 @@ describe('Filter component', () => {
   test('submits event when input value changes', () => {
     const testHandler = jest.fn();
 
-    const { container } = render(<Filter value="something else" onSubmit={testHandler} />);
+    const { container } = render(<Filter ref={createRef()} value="something else" onSubmit={testHandler} />);
 
     const input = container.querySelector('input');
 

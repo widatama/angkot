@@ -1,13 +1,12 @@
-import { FC, useRef } from 'react';
+import { FC, forwardRef } from 'react';
 
 type FilterProps = {
   placeholder: string,
   value: string,
 }
 
-const Filter: FC<FilterProps> = (props: FilterProps) => {
+const Filter: FC<FilterProps> = forwardRef((props: FilterProps, inpRef) => {
   const { onSubmit, placeholderText, value } = props;
-  const filterInput = useRef(null);
 
   const handleChange = (event) => {
     const { value } = event.target;
@@ -18,7 +17,7 @@ const Filter: FC<FilterProps> = (props: FilterProps) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const { value } = filterInput.current;
+    const { value } = inpRef.current;
 
     onSubmit(value);
   }
@@ -34,13 +33,13 @@ const Filter: FC<FilterProps> = (props: FilterProps) => {
         placeholder={placeholderText}
         onChange={handleChange}
         value={value}
-        ref={filterInput}
+        ref={inpRef}
       />
       <button type="submit" className="font-bold px-2">
         &rarr;
       </button>
     </form>
   );
-}
+});
 
 export default Filter;

@@ -14,6 +14,7 @@ class App extends React.Component<AppProps> {
     super(props);
 
     this.handleFilterSubmit = this.handleFilterSubmit.bind(this);
+    this.filterRef = React.createRef();
     this.state = {
       filterValue: '',
       titles: dataHeaders,
@@ -31,13 +32,17 @@ class App extends React.Component<AppProps> {
     this.debouncedGetData(filterValue);
   }
 
+  componentDidMount() {
+    this.filterRef.current.focus();
+  }
+
   render() {
-    const { handleFilterSubmit } = this;
+    const { filterRef, handleFilterSubmit } = this;
     const { entries, filterValue, titles } = this.state;
 
     return (
       <div className="wrap mx-auto my-8 flex flex-col">
-        <Filter value={filterValue} placeholderText="Cari rute" onSubmit={handleFilterSubmit} />
+        <Filter value={filterValue} placeholderText="Cari rute" ref={filterRef} onSubmit={handleFilterSubmit} />
         { entries.length > 0 &&
           <DataTable titles={titles} entries={entries} />
         }
