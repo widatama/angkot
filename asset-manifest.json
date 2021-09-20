@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.8e3844de.chunk.css",
-    "main.js": "/static/js/main.8a063ede.chunk.js",
-    "main.js.map": "/static/js/main.8a063ede.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.db72152d.js",
-    "runtime-main.js.map": "/static/js/runtime-main.db72152d.js.map",
-    "static/js/2.da710304.chunk.js": "/static/js/2.da710304.chunk.js",
-    "static/js/2.da710304.chunk.js.map": "/static/js/2.da710304.chunk.js.map",
-    "static/js/3.c0e283f6.chunk.js": "/static/js/3.c0e283f6.chunk.js",
-    "static/js/3.c0e283f6.chunk.js.map": "/static/js/3.c0e283f6.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.8e3844de.chunk.css.map": "/static/css/main.8e3844de.chunk.css.map",
-    "static/js/2.da710304.chunk.js.LICENSE.txt": "/static/js/2.da710304.chunk.js.LICENSE.txt"
+    "main.css": "/angkot/static/css/main.8e3844de.chunk.css",
+    "main.js": "/angkot/static/js/main.8a063ede.chunk.js",
+    "main.js.map": "/angkot/static/js/main.8a063ede.chunk.js.map",
+    "runtime-main.js": "/angkot/static/js/runtime-main.f78eb015.js",
+    "runtime-main.js.map": "/angkot/static/js/runtime-main.f78eb015.js.map",
+    "static/js/2.da710304.chunk.js": "/angkot/static/js/2.da710304.chunk.js",
+    "static/js/2.da710304.chunk.js.map": "/angkot/static/js/2.da710304.chunk.js.map",
+    "static/js/3.c0e283f6.chunk.js": "/angkot/static/js/3.c0e283f6.chunk.js",
+    "static/js/3.c0e283f6.chunk.js.map": "/angkot/static/js/3.c0e283f6.chunk.js.map",
+    "index.html": "/angkot/index.html",
+    "static/css/main.8e3844de.chunk.css.map": "/angkot/static/css/main.8e3844de.chunk.css.map",
+    "static/js/2.da710304.chunk.js.LICENSE.txt": "/angkot/static/js/2.da710304.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.db72152d.js",
+    "static/js/runtime-main.f78eb015.js",
     "static/js/2.da710304.chunk.js",
     "static/css/main.8e3844de.chunk.css",
     "static/js/main.8a063ede.chunk.js"
