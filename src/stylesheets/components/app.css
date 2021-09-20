@@ -1,7 +1,0 @@
-.c-app {
-  padding: 1.5em;
-
-  @media (--bp-small) {
-    padding: .75em;
-  }
-}
