@@ -1,25 +1,28 @@
-import React, { useState } from 'react';
+import debounce from 'just-debounce';
+import React, { useCallback, useState } from 'react';
+
+import getData, { dataHeaders } from '@/modules/data';
+import Filter from '@/components/Filter';
+import DataTable from '@/components/DataTable';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [filterValue, setFilterValue] = useState('');
+  const [entries, setEntries] = useState([]);
+
+  const debouncedGetData = debounce(async (query) => {
+    const res = await getData(query);
+    setEntries(res as never[]);
+  }, 300);
+
+  const handleFilterSubmit = useCallback((newFilterValue: string) => {
+    setFilterValue(newFilterValue);
+    debouncedGetData(newFilterValue);
+  }, [filterValue]);
 
   return (
-    <div className="tw-container tw-mx-auto tw-flex tw-flex-col tw-items-center">
-      <h1 className="tw-mt-8">Vite + React</h1>
-      <div className="tw-mt-12 tw-flex tw-flex-col tw-items-center">
-        <button type="button" className="tw-p-2 tw-border tw-border-black" onClick={() => setCount((c) => c + 1)}>
-          count is
-          {' '}
-          {count}
-        </button>
-        <p className="tw-mt-4">
-          Edit
-          {' '}
-          <code>src/App.tsx</code>
-          {' '}
-          and save to test HMR
-        </p>
-      </div>
+    <div className="wrap mx-auto my-8 flex flex-col">
+      <Filter filterValue={filterValue} placeholderText="Cari rute" onSubmit={handleFilterSubmit} />
+      { entries.length > 0 && <DataTable titles={dataHeaders} entries={entries} /> }
     </div>
   );
 }

@@ -8,6 +8,18 @@ module.exports = {
     ecmaVersion: 'latest',
     project: ['./tsconfig.json', './tsconfig.node.json'],
   },
+  rules: {
+    'import/extensions': [
+      'error',
+      'never',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
+  },
   overrides: [
     {
       files: ['vite.config.ts'],
