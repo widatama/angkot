@@ -1,20 +1,19 @@
 import bent from 'bent';
 
-let cachedData = [];
+let cachedData: any[] = [];
 const dataHeaders = ['Jenis', 'No', 'Nama Rute', 'Rute Berangkat', 'Rute Kembali'];
 
-async function loadData(): object[] {
-  const get = bent(window.location.href, 'json');
-  const response = await get('/data.json');
+async function loadData(): Promise<object[]> {
+  const get = bent('json');
+  const response = await get(`${window.location.href}data.json`);
 
   return response;
 }
 
-function formatData(entry: object) {
-  const vehicleType: string =
-    entry.jenis_trayek === '-'
-      ? entry.jenis_angkutan.replace(/K W K/i, 'KWK')
-      : entry.jenis_trayek.replace(/K W K/i, 'KWK');
+function formatData(entry: any) {
+  const vehicleType: string = (!entry.jenis_trayek || entry.jenis_trayek === '-')
+    ? entry.jenis_angkutan.replace(/K W K/i, 'KWK')
+    : entry.jenis_trayek.replace(/K W K/i, 'KWK');
   const routeNumber: string = entry.no_trayek;
   const routeName: string = entry.nama_trayek;
   const routeDepart: string = entry.rute_berangkat.replace(/ -- /g, '<br/>');
@@ -34,9 +33,7 @@ function formatData(entry: object) {
 function generateRegexStr(rawStr: string): string {
   let result = rawStr.split(' ');
 
-  result = result.map(chunk => {
-    return `(?=.*${chunk})`;
-  });
+  result = result.map((chunk) => `(?=.*${chunk})`);
 
   return `${result.join('')}.`;
 }
@@ -54,7 +51,7 @@ function isRegexValid(regexStr: string): boolean {
   return result;
 }
 
-async function getData(query: string): object[] {
+async function getData(query: string): Promise<object[]> {
   if (cachedData.length === 0) {
     const rawData = await loadData();
     cachedData = rawData.map(formatData);
@@ -69,12 +66,13 @@ async function getData(query: string): object[] {
 
     result = cachedData.reduce((acc, current) => {
       if (rgx.test(current['~digest'])) {
-        const row = [].concat(Object.values(current).slice(0, -1));
+        const row = [...Object.values(current).slice(0, -1)];
         row.forEach((field, idx) => {
-          if (field.length) {
-            row[idx] = field.replace(highlightRgx, '<span class="text-blue-500">$&</span>')
+          if (typeof field === 'string' && field.length) {
+            row[idx] = field.replace(highlightRgx, '<span class="text-blue-500">$&</span>');
           }
         });
+        // eslint-disable-next-line no-param-reassign
         acc = acc.concat([row]);
       }
 

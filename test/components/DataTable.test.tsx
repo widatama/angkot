@@ -1,19 +1,23 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Body, Header } from './DataTable';
+import {
+  beforeEach,
+  describe,
+  expect,
+  test,
+} from 'vitest';
+
+import { Body, Header } from '@/components/DataTable';
 
 describe('Header component', () => {
-  const titles = ['one', 'two'];
-
-  test('does not render anything', () => {
-    const tableEl = document.createElement('table');
-    const { container } = render(<Header />, {
-      container: document.body.appendChild(tableEl),
-    });
-
-    expect(container.querySelector('thead')).toBeFalsy();
+  beforeEach(() => {
+    const { body } = document;
+    body.textContent = '';
   });
 
-  test('renders table header', () => {
+  const titles = ['one', 'two'];
+
+  test('Renders table header', () => {
     const tableEl = document.createElement('table');
     const { container } = render(<Header titles={titles} />, {
       container: document.body.appendChild(tableEl),
@@ -31,23 +35,14 @@ describe('Body component', () => {
     ['three', 'four'],
   ];
 
-  test('does not render anything', () => {
-    const tableEl = document.createElement('table');
-    const { container } = render(<Body />, {
-      container: document.body.appendChild(tableEl),
-    });
-
-    expect(container.querySelector('tbody')).toBeFalsy();
-  });
-
-  test('renders table body', () => {
+  test('Renders table body', () => {
     const tableEl = document.createElement('table');
     const { container } = render(<Body entries={entries} />, {
       container: document.body.appendChild(tableEl),
     });
 
     expect(container.querySelector('tbody')).toBeTruthy();
-    expect(screen.getByText(/one/i)).toBeTruthy();
-    expect(screen.getByText(/three/i)).toBeTruthy();
+    expect(screen.getByText(/two/i, { selector: 'td' })).toBeTruthy();
+    expect(screen.getByText(/four/i, { selector: 'td' })).toBeTruthy();
   });
 });

@@ -1,28 +1,37 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Searchable Jakarta’s public transportation routes 
 
-## Available Scripts
+## Type Support for `.vue` Imports in TS
 
-In the project directory, you can run:
+TypeScript cannot handle type information for `.vue` imports by default, so the `tsc` CLI is replaced with `vue-tsc` for type checking.
 
-### `npm start`
+## Customize configuration
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Project Setup
 
-### `npm test`
+```sh
+npm install
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Compile and Hot-Reload for Development
 
-### `npm run build`
+```sh
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Type-Check, Compile and Minify for Production
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+npm run build
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
+```
+
+## Data Source
+
+- https://data.jakarta.go.id/dataset/daftartrayekangkutanumum

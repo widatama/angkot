@@ -1,17 +1,17 @@
-import { FC } from 'react';
+import React from 'react';
 
 type HeaderProps = {
-  titles: string[],
-}
+  titles: string[];
+};
 
-const Header: FC<HeaderProps> = (props: HeaderProps) => {
+function Header(props: HeaderProps) {
   const { titles } = props;
 
   if (titles.length > 0) {
     return (
       <thead className="text-gray-500 text-left">
         <tr>
-          {titles.map(key => {
+          {titles.map((key) => {
             if (!/~/.test(key)) {
               return (
                 <th
@@ -31,31 +31,27 @@ const Header: FC<HeaderProps> = (props: HeaderProps) => {
   }
 
   return null;
-};
-
-Header.defaultProps = {
-  titles: [],
-};
-
-type BodyProps = {
-  entries: string[][],
 }
 
-const Body: FC<BodyProps> = (props: BodyProps) => {
+type BodyProps = {
+  entries: string[][];
+};
+
+function Body(props: BodyProps) {
   const { entries } = props;
 
   if (entries) {
     return (
       <tbody>
-        {entries.map(row => (
+        {entries.map((row) => (
           <tr key={row[0]}>
             {row.slice(1).map((field, idx) => (
               <td
+                // eslint-disable-next-line react/no-array-index-key
                 key={`${row[0]}${idx}`}
                 className="align-top pb-2"
                 dangerouslySetInnerHTML={{ __html: field }}
-              >
-              </td>
+              />
             ))}
           </tr>
         ))}
@@ -66,7 +62,7 @@ const Body: FC<BodyProps> = (props: BodyProps) => {
   return null;
 }
 
-const DataTable: FC<TableProps> = (props: HeaderProps & BodyProps) => {
+function DataTable(props: HeaderProps & BodyProps) {
   const { entries, titles } = props;
 
   return (
