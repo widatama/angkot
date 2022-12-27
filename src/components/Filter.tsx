@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 export type FilterFormProps = {
   filterValue: string;
@@ -9,6 +9,10 @@ export type FilterFormProps = {
 function FilterForm(props: FilterFormProps) {
   const { filterValue, placeholderText, onSubmit } = props;
   const inpRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inpRef?.current?.focus();
+  });
 
   const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     event.target?.form?.requestSubmit();
