@@ -43,8 +43,8 @@ export default defineConfig({
         name: appTitle,
         short_name: appTitle,
         orientation: 'portrait',
-        background_color: '#ffffff',
-        theme_color: '#333333',
+        background_color: '#333333',
+        theme_color: '#ffffff',
         icons: [
           {
             src: '/favicon.png',
