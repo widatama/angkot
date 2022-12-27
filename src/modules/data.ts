@@ -11,7 +11,7 @@ async function loadData(): Promise<object[]> {
 }
 
 function formatData(entry: any) {
-  const vehicleType: string = entry.jenis_trayek === '-'
+  const vehicleType: string = (!entry.jenis_trayek || entry.jenis_trayek === '-')
     ? entry.jenis_angkutan.replace(/K W K/i, 'KWK')
     : entry.jenis_trayek.replace(/K W K/i, 'KWK');
   const routeNumber: string = entry.no_trayek;
