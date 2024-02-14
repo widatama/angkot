@@ -5,7 +5,10 @@ const dataHeaders = ['Jenis', 'No', 'Nama Rute', 'Rute Berangkat', 'Rute Kembali
 
 async function loadData(): Promise<object[]> {
   const get = bent('json');
-  const response = await get(`${window.location.href}data.json`);
+  const urlObj = new URL(window.location.href);
+  urlObj.pathname = `${urlObj.pathname}/data.json`;
+
+  const response = await get(urlObj.href);
 
   return response;
 }

@@ -9,6 +9,7 @@
 # production
 /dist
 /dist-ssr
+/src/dev-dist
 
 # tailwind output file
 /src/stylesheets/out.css
