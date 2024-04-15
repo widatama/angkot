@@ -22,23 +22,23 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@testing-library/react": "^14.2.1",
+    "@testing-library/react": "^15.0.2",
     "@types/bent": "^7.3.8",
-    "@types/react": "^18.2.55",
-    "@types/react-dom": "^18.2.19",
+    "@types/react": "^18.2.78",
+    "@types/react-dom": "^18.2.25",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react-swc": "^3.6.0",
-    "autoprefixer": "^10.4.17",
+    "autoprefixer": "^10.4.19",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",
     "jsdom": "^24.0.0",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.1.1",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.8",
     "vite-plugin-html": "^3.2.2",
-    "vite-plugin-pwa": "^0.18.1",
-    "vitest": "^1.2.2"
+    "vite-plugin-pwa": "^0.19.8",
+    "vitest": "^1.5.0"
   }
 }
