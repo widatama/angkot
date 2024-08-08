@@ -1,9 +1,29 @@
 import bent from 'bent';
 
-let cachedData: any[] = [];
+type Entry = {
+  id: string;
+  jenis_trayek: string;
+  jenis_angkutan: string;
+  no_trayek: string;
+  nama_trayek: string;
+  rute_berangkat: string;
+  rute_kembali: string;
+};
+
+type FormattedEntry = {
+  '~id': string;
+  'Jenis': string;
+  'No': string;
+  'Nama Rute': string;
+  'Rute Berangkat': string;
+  'Rute Kembali': string;
+  '~digest': string;
+};
+
+let cachedData: FormattedEntry[] = [];
 const dataHeaders = ['Jenis', 'No', 'Nama Rute', 'Rute Berangkat', 'Rute Kembali'];
 
-async function loadData(): Promise<object[]> {
+async function loadData(): Promise<Entry[]> {
   const get = bent('json');
   const urlObj = new URL(window.location.href);
   urlObj.pathname = `${urlObj.pathname}/data.json`;
@@ -13,7 +33,7 @@ async function loadData(): Promise<object[]> {
   return response;
 }
 
-function formatData(entry: any) {
+function formatData(entry: Entry): FormattedEntry {
   const vehicleType: string = (!entry.jenis_trayek || entry.jenis_trayek === '-')
     ? entry.jenis_angkutan.replace(/K W K/i, 'KWK')
     : entry.jenis_trayek.replace(/K W K/i, 'KWK');
@@ -23,9 +43,9 @@ function formatData(entry: any) {
   const routeReturn: string = entry.rute_kembali.replace(/ -- /g, '<br/>');
 
   return {
-    '~id': entry.id,
-    Jenis: vehicleType,
-    No: routeNumber,
+    '~id': entry.no_trayek,
+    'Jenis': vehicleType,
+    'No': routeNumber,
     'Nama Rute': routeName,
     'Rute Berangkat': routeDepart,
     'Rute Kembali': routeReturn,
@@ -47,27 +67,27 @@ function isRegexValid(regexStr: string): boolean {
   try {
     const rgx = new RegExp(regexStr);
     result = typeof rgx !== 'undefined';
-  } catch (e) {
+  } catch (_) { // eslint-disable-line @typescript-eslint/no-unused-vars
     result = false;
   }
 
   return result;
 }
 
-async function getData(query: string): Promise<object[]> {
+async function getData(query: string): Promise<string[][]> {
   if (cachedData.length === 0) {
     const rawData = await loadData();
     cachedData = rawData.map(formatData);
   }
 
   const regexStr = generateRegexStr(query);
-  let result = [];
+  let result: string[][] = [];
 
   if (query !== '' && isRegexValid(regexStr)) {
     const rgx = new RegExp(regexStr, 'ig');
     const highlightRgx = new RegExp(query, 'ig');
 
-    result = cachedData.reduce((acc, current) => {
+    result = cachedData.reduce((acc: string[][], current) => {
       if (rgx.test(current['~digest'])) {
         const row = [...Object.values(current).slice(0, -1)];
         row.forEach((field, idx) => {
@@ -75,7 +95,7 @@ async function getData(query: string): Promise<object[]> {
             row[idx] = field.replace(highlightRgx, '<span class="text-blue-500">$&</span>');
           }
         });
-        // eslint-disable-next-line no-param-reassign
+
         acc = acc.concat([row]);
       }
 

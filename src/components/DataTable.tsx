@@ -47,7 +47,7 @@ function Body(props: BodyProps) {
           <tr key={row[0]}>
             {row.slice(1).map((field, idx) => (
               <td
-                // eslint-disable-next-line react/no-array-index-key
+                 
                 key={`${row[0]}${idx}`}
                 className="align-top pb-2"
                 dangerouslySetInnerHTML={{ __html: field }}
