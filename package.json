@@ -5,7 +5,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint --fix",
+    "lint": "eslint --fix --cache",
     "test": "vitest run"
   },
   "author": "Danu Widatama",
