@@ -30,7 +30,7 @@ function FilterForm(props: FilterFormProps) {
     >
       <input
         type="text"
-        className="flex-grow outline-none bg-transparent"
+        className="grow outline-hidden bg-transparent"
         placeholder={placeholderText}
         onChange={handleChange}
         value={filterValue}
