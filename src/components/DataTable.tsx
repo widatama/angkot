@@ -47,7 +47,7 @@ function Body(props: BodyProps) {
           <tr key={row[0]}>
             {row.slice(1).map((field, idx) => (
               <td
-                 
+
                 key={`${row[0]}${idx}`}
                 className="align-top pb-2"
                 dangerouslySetInnerHTML={{ __html: field }}

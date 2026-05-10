@@ -5,7 +5,7 @@ import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vite';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { VitePWA } from 'vite-plugin-pwa';
-import react from '@vitejs/plugin-react-swc';
+import react from '@vitejs/plugin-react';
 
 const outDir = resolve(__dirname, 'dist');
 const rootDir = resolve(__dirname, 'src');
@@ -87,8 +87,5 @@ export default defineConfig({
     // Because vite root is modified, need to point this to test directory
     include: ['../test/**/*.{test,spec}.{js,jsx,ts,tsx}'],
     reporters: 'dot',
-  },
-  esbuild: {
-    legalComments: 'none',
   },
 });
