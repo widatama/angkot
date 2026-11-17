@@ -7,9 +7,9 @@ import { createHtmlPlugin } from 'vite-plugin-html';
 import { VitePWA } from 'vite-plugin-pwa';
 import react from '@vitejs/plugin-react';
 
-const outDir = resolve(__dirname, 'dist');
-const rootDir = resolve(__dirname, 'src');
-const publicDir = resolve(__dirname, 'public');
+const outDir = resolve(import.meta.dirname, 'dist');
+const rootDir = resolve(import.meta.dirname, 'src');
+const publicDir = resolve(import.meta.dirname, 'public');
 
 const appTitle = 'Angkot';
 

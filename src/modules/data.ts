@@ -1,5 +1,3 @@
-import bent from 'bent';
-
 type Entry = {
   id: string;
   jenis_trayek: string;
@@ -24,13 +22,16 @@ let cachedData: FormattedEntry[] = [];
 const dataHeaders = ['Jenis', 'No', 'Nama Rute', 'Rute Berangkat', 'Rute Kembali'];
 
 async function loadData(): Promise<Entry[]> {
-  const get = bent('json');
   const urlObj = new URL(window.location.href);
   urlObj.pathname = `${urlObj.pathname}/data.json`;
 
-  const response = await get(urlObj.href);
+  const response = await fetch(urlObj.href);
 
-  return response;
+  if (!response.ok) {
+    throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json() as Promise<Entry[]>;
 }
 
 function formatData(entry: Entry): FormattedEntry {
